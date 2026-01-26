@@ -48,7 +48,7 @@ public class GymCustomerMenu {
 
     }
 
-    private void viewWaitlistStatuhesare() {
+    private void viewWaitlistStatus() {
         System.out.print("Enter Slot ID to check waitlist: ");
         int slotId = scanner.nextInt();
         

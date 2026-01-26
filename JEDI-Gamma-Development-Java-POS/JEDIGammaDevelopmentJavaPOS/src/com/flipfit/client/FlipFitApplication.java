@@ -11,6 +11,8 @@ public class FlipFitApplication {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         BookingBusinessService bookingBusiness = new BookingBusinessService();
+        UserBusiness userBusiness = new UserBusinessImpl();
+        CustomerBusiness customerBusiness = new CustomerBusinessImpl();
 
         GymCentre gc1 = new GymCentre(1, "Mahadevapura", "06:00 - 21:00", 500);
         List<Slot> masterSlot = new ArrayList<>();
@@ -25,6 +27,39 @@ public class FlipFitApplication {
         System.out.println("==========================================");
         System.out.println("      WELCOME TO FLIPFIT SYSTEMS");
         System.out.println("==========================================");
+
+         //  Registration Check 
+        System.out.println("1. Login");
+        System.out.println("2. Registration");
+        System.out.print("Choose option: ");
+        int portalOption = scanner.nextInt();
+
+        if (portalOption == 2) {
+            System.out.println("\n--- REGISTRATION ---");
+            System.out.print("Enter Email: ");
+            String regEmail = scanner.next();
+            System.out.print("Enter Password: ");
+            String regPass = scanner.next();
+            System.out.print("Enter User ID: ");
+            String regUserId = scanner.next();
+            User newUser = new User();
+            newUser.setEmail(regEmail);
+            newUser.setPassword(regPass);
+            newUser.setUserId(regUserId);
+            
+            userBusiness.register(newUser);
+            System.out.println("Registration Successful! Please Login now.");
+        }
+        
+        System.out.println("\n--- LOGIN ---");
+        System.out.print("Enter Email: ");
+        String email = scanner.next();
+        System.out.print("Enter Password: ");
+        String password = scanner.next();
+        if (!userBusiness.login(email, password)) {
+            System.out.println("Invalid Credentials. Exiting...");
+            return; 
+        }
 
         boolean running = true;
         while (running) {
@@ -125,7 +160,7 @@ public class FlipFitApplication {
         }
         System.out.printf("%-12s %-10s %-10s %-10s\n", "Booking ID", "User ID", "Slot ID", "Amount");
         for (Booking b : bookings) {
-            System.out.printf("%-12d %-10d %-10d ₹%-10.2f\n",
+            System.out.printf("%-12d %-10d %-10d Rs. %-10.2f\n",
                     b.getBookingId(), b.getUserId(), b.getSlotId(), b.getTotalCost());
         }
     }

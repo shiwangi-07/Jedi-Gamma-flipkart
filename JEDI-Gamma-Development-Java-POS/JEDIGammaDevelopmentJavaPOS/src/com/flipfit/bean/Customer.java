@@ -2,7 +2,7 @@ package com.flipfit.bean;
 
 import java.util.List;
 
-public class Customer {
+public class Customer extends User{
     private String customerId; // Add this field
     private double walletBalance;
     private List<String> preferences;
